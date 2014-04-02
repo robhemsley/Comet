@@ -1,0 +1,68 @@
+<html>
+<head>
+    <title>Projector</title>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    
+    <script src="http://um-display.media.mit.edu/window/js/lib/tween.min.js"></script>  
+    <script src="Comet.js"></script>
+    
+    <script>
+    
+        var ctx = undefined;
+
+        $(function() {    
+            var c = document.getElementById('CometCanvas');
+            ctx = c.getContext('2d');
+            var cw = c.width = window.innerWidth;
+            var ch = c.height = window.innerHeight;
+            
+            animate();
+        
+            $(document).keypress(function(e){
+                var c = String.fromCharCode(e.which)
+                                
+                switch(c){                 
+                    case 'r':
+                      comet = new Comet(ctx);
+                      comet.x = 10;
+                      comet.y = 10;
+                      comet.hue = 1;
+                      comet.length = 250;            
+                      
+                      out = {"x": cw/2, "y":cw/2, "hue": 1, "time": 5000, "length": 10};
+                      comet.setEnd(out);
+                      cometObj[comet.cometId] = comet;   
+                      break;
+                }
+            });
+
+            comet = new Comet(ctx);
+            comet.x = 10;
+            comet.y = 10;
+            comet.hue = 1;
+            comet.length = 250;            
+                      
+            out = {"x": cw/2, "y":cw/2, "hue": 1, "time": 2000, "length": 10};
+            comet.setEnd(out);
+            cometObj[comet.cometId] = comet;   
+        });
+        
+    </script>
+    
+    
+    <style>        
+        html,body
+        {
+            margin:0;
+            padding:0;
+            background: black;
+        }
+    </style>
+
+</head>
+<body>
+    <canvas id="CometCanvas" style="position: absolute; top:0; left:0;"></canvas>
+</body>
+</html>
